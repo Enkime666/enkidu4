@@ -1,0 +1,714 @@
+   1               		.file	"south.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.south_irq,"ax",@progbits
+  17               	.global	south_irq
+  19               	south_irq:
+  20               	.LFB8:
+  21               	.LSM0:
+  22               	.LVL0:
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	/* stack size = 0 */
+  26               	.L__stack_usage = 0
+  27               	/* epilogue start */
+  28               	.LSM1:
+  29 0000 0895      		ret
+  30               	.LFE8:
+  32               		.section	.text.south_max6959,"ax",@progbits
+  33               	.global	south_max6959
+  35               	south_max6959:
+  36               	.LFB9:
+  37               	.LSM2:
+  38               	.LVL1:
+  39               	/* prologue: function */
+  40               	/* frame size = 0 */
+  41               	/* stack size = 0 */
+  42               	.L__stack_usage = 0
+  43               	.LSM3:
+  44 0000 5C98      		cbi 43-32,4
+  45               	.LSM4:
+  46 0002 9BB1      		in r25,43-32
+  47 0004 282F      		mov r18,r24
+  48 0006 30E0      		ldi r19,lo8(0)
+  49 0008 2270      		andi r18,lo8(2)
+  50 000a 3070      		andi r19,hi8(2)
+  51 000c 43E0      		ldi r20,3
+  52 000e 220F      	1:	lsl r18
+  53 0010 331F      		rol r19
+  54 0012 4A95      		dec r20
+  55 0014 01F4      		brne 1b
+  56 0016 922B      		or r25,r18
+  57 0018 9BB9      		out 43-32,r25
+  58               	.LSM5:
+  59 001a 8170      		andi r24,lo8(1)
+  60               	.LVL2:
+  61               	.LSM6:
+  62 001c 880F      		lsl r24
+  63               	/* epilogue start */
+  64 001e 0895      		ret
+  65               	.LFE9:
+  67               		.section	.text.south_read,"ax",@progbits
+  68               	.global	south_read
+  70               	south_read:
+  71               	.LFB10:
+  72               	.LSM7:
+  73               	.LVL3:
+  74 0000 EF92      		push r14
+  75 0002 FF92      		push r15
+  76 0004 0F93      		push r16
+  77 0006 1F93      		push r17
+  78 0008 CF93      		push r28
+  79 000a DF93      		push r29
+  80               	/* prologue: function */
+  81               	/* frame size = 0 */
+  82               	/* stack size = 6 */
+  83               	.L__stack_usage = 6
+  84 000c 182F      		mov r17,r24
+  85               	.LVL4:
+  86               	.LSM8:
+  87 000e E62E      		mov r14,r22
+  88 0010 E701      		movw r28,r14
+  89 0012 7E01      		movw r14,r28
+  90 0014 F72E      		mov r15,r23
+  91 0016 E701      		movw r28,r14
+  92 0018 00E0      		ldi r16,lo8(0)
+  93               	.LVL5:
+  94               	.L4:
+  95               	.LSM9:
+  96 001a 802F      		mov r24,r16
+  97 001c 0E94 0000 		call south_max6959
+  98 0020 612F      		mov r22,r17
+  99 0022 AE01      		movw r20,r28
+ 100 0024 0E94 0000 		call max6959_read
+ 101               	.LSM10:
+ 102 0028 0F5F      		subi r16,lo8(-(1))
+ 103               	.LVL6:
+ 104 002a 2196      		adiw r28,1
+ 105 002c 0430      		cpi r16,lo8(4)
+ 106 002e 01F4      		brne .L4
+ 107               	/* epilogue start */
+ 108               	.LSM11:
+ 109 0030 DF91      		pop r29
+ 110 0032 CF91      		pop r28
+ 111 0034 1F91      		pop r17
+ 112               	.LVL7:
+ 113 0036 0F91      		pop r16
+ 114               	.LVL8:
+ 115 0038 FF90      		pop r15
+ 116 003a EF90      		pop r14
+ 117 003c 0895      		ret
+ 118               	.LFE10:
+ 120               		.section	.text.south_write,"ax",@progbits
+ 121               	.global	south_write
+ 123               	south_write:
+ 124               	.LFB11:
+ 125               	.LSM12:
+ 126               	.LVL9:
+ 127 0000 FF92      		push r15
+ 128 0002 0F93      		push r16
+ 129 0004 1F93      		push r17
+ 130 0006 DF93      		push r29
+ 131 0008 CF93      		push r28
+ 132 000a 00D0      		rcall .
+ 133 000c 00D0      		rcall .
+ 134 000e 0F92      		push __tmp_reg__
+ 135 0010 CDB7      		in r28,__SP_L__
+ 136 0012 DEB7      		in r29,__SP_H__
+ 137               	/* prologue: function */
+ 138               	/* frame size = 5 */
+ 139               	/* stack size = 10 */
+ 140               	.L__stack_usage = 10
+ 141 0014 F82E      		mov r15,r24
+ 142 0016 4983      		std Y+1,r20
+ 143 0018 5A83      		std Y+2,r21
+ 144 001a 6B83      		std Y+3,r22
+ 145 001c 7C83      		std Y+4,r23
+ 146               	.LVL10:
+ 147               	.LSM13:
+ 148 001e 8E01      		movw r16,r28
+ 149 0020 0F5F      		subi r16,lo8(-(1))
+ 150 0022 1F4F      		sbci r17,hi8(-(1))
+ 151 0024 90E0      		ldi r25,lo8(0)
+ 152               	.LVL11:
+ 153               	.L7:
+ 154               	.LSM14:
+ 155 0026 892F      		mov r24,r25
+ 156 0028 9D83      		std Y+5,r25
+ 157 002a 0E94 0000 		call south_max6959
+ 158               	.LVL12:
+ 159 002e F801      		movw r30,r16
+ 160 0030 4191      		ld r20,Z+
+ 161 0032 8F01      		movw r16,r30
+ 162 0034 6F2D      		mov r22,r15
+ 163 0036 50E0      		ldi r21,lo8(0)
+ 164 0038 0E94 0000 		call max6959_read
+ 165               	.LSM15:
+ 166 003c 9D81      		ldd r25,Y+5
+ 167 003e 9F5F      		subi r25,lo8(-(1))
+ 168               	.LVL13:
+ 169 0040 9430      		cpi r25,lo8(4)
+ 170 0042 01F4      		brne .L7
+ 171               	/* epilogue start */
+ 172               	.LSM16:
+ 173 0044 0F90      		pop __tmp_reg__
+ 174 0046 0F90      		pop __tmp_reg__
+ 175 0048 0F90      		pop __tmp_reg__
+ 176 004a 0F90      		pop __tmp_reg__
+ 177 004c 0F90      		pop __tmp_reg__
+ 178               	.LVL14:
+ 179 004e CF91      		pop r28
+ 180 0050 DF91      		pop r29
+ 181               	.LVL15:
+ 182 0052 1F91      		pop r17
+ 183 0054 0F91      		pop r16
+ 184 0056 FF90      		pop r15
+ 185               	.LVL16:
+ 186 0058 0895      		ret
+ 187               	.LFE11:
+ 189               		.section	.text.south_write_broadcast,"ax",@progbits
+ 190               	.global	south_write_broadcast
+ 192               	south_write_broadcast:
+ 193               	.LFB12:
+ 194               	.LSM17:
+ 195               	.LVL17:
+ 196 0000 FF92      		push r15
+ 197 0002 0F93      		push r16
+ 198 0004 1F93      		push r17
+ 199               	/* prologue: function */
+ 200               	/* frame size = 0 */
+ 201               	/* stack size = 3 */
+ 202               	.L__stack_usage = 3
+ 203 0006 F82E      		mov r15,r24
+ 204 0008 062F      		mov r16,r22
+ 205               	.LVL18:
+ 206               	.LSM18:
+ 207 000a 10E0      		ldi r17,lo8(0)
+ 208               	.LVL19:
+ 209               	.L10:
+ 210               	.LSM19:
+ 211 000c 812F      		mov r24,r17
+ 212 000e 0E94 0000 		call south_max6959
+ 213 0012 6F2D      		mov r22,r15
+ 214 0014 402F      		mov r20,r16
+ 215 0016 0E94 0000 		call max6959_write
+ 216               	.LSM20:
+ 217 001a 1F5F      		subi r17,lo8(-(1))
+ 218               	.LVL20:
+ 219 001c 1430      		cpi r17,lo8(4)
+ 220 001e 01F4      		brne .L10
+ 221               	/* epilogue start */
+ 222               	.LSM21:
+ 223 0020 1F91      		pop r17
+ 224               	.LVL21:
+ 225 0022 0F91      		pop r16
+ 226               	.LVL22:
+ 227 0024 FF90      		pop r15
+ 228               	.LVL23:
+ 229 0026 0895      		ret
+ 230               	.LFE12:
+ 232               		.section	.text.south_init,"ax",@progbits
+ 233               	.global	south_init
+ 235               	south_init:
+ 236               	.LFB7:
+ 237               	.LSM22:
+ 238               	/* prologue: function */
+ 239               	/* frame size = 0 */
+ 240               	/* stack size = 0 */
+ 241               	.L__stack_usage = 0
+ 242               	.LSM23:
+ 243 0000 82E0      		ldi r24,lo8(2)
+ 244 0002 6FE3      		ldi r22,lo8(63)
+ 245 0004 0E94 0000 		call south_write_broadcast
+ 246               	/* epilogue start */
+ 247               	.LSM24:
+ 248 0008 0895      		ret
+ 249               	.LFE7:
+ 251               		.section	.text.south_up,"ax",@progbits
+ 252               	.global	south_up
+ 254               	south_up:
+ 255               	.LFB13:
+ 256               	.LSM25:
+ 257               	.LVL24:
+ 258 0000 EF92      		push r14
+ 259 0002 FF92      		push r15
+ 260 0004 0F93      		push r16
+ 261 0006 1F93      		push r17
+ 262 0008 DF93      		push r29
+ 263 000a CF93      		push r28
+ 264 000c 00D0      		rcall .
+ 265 000e 00D0      		rcall .
+ 266 0010 CDB7      		in r28,__SP_L__
+ 267 0012 DEB7      		in r29,__SP_H__
+ 268               	/* prologue: function */
+ 269               	/* frame size = 4 */
+ 270               	/* stack size = 10 */
+ 271               	.L__stack_usage = 10
+ 272               	.LVL25:
+ 273               	.LSM26:
+ 274 0014 BE01      		movw r22,r28
+ 275 0016 6F5F      		subi r22,lo8(-(1))
+ 276 0018 7F4F      		sbci r23,hi8(-(1))
+ 277 001a 0E94 0000 		call south_read
+ 278               	.LVL26:
+ 279               	.LSM27:
+ 280 001e 8981      		ldd r24,Y+1
+ 281 0020 9A81      		ldd r25,Y+2
+ 282 0022 AB81      		ldd r26,Y+3
+ 283 0024 BC81      		ldd r27,Y+4
+ 284               	.LVL27:
+ 285               	.LSM28:
+ 286 0026 9C01      		movw r18,r24
+ 287 0028 AD01      		movw r20,r26
+ 288 002a 2E71      		andi r18,lo8(30)
+ 289 002c 3070      		andi r19,hi8(30)
+ 290 002e 4070      		andi r20,hlo8(30)
+ 291 0030 5070      		andi r21,hhi8(30)
+ 292 0032 14E0      		ldi r17,4
+ 293 0034 220F      	1:	lsl r18
+ 294 0036 331F      		rol r19
+ 295 0038 441F      		rol r20
+ 296 003a 551F      		rol r21
+ 297 003c 1A95      		dec r17
+ 298 003e 01F4      		brne 1b
+ 299               	.LSM29:
+ 300 0040 FCE3      		ldi r31,lo8(60)
+ 301 0042 EF2E      		mov r14,r31
+ 302 0044 F12C      		mov r15,__zero_reg__
+ 303 0046 012D      		mov r16,__zero_reg__
+ 304 0048 112D      		mov r17,__zero_reg__
+ 305 004a E822      		and r14,r24
+ 306 004c F922      		and r15,r25
+ 307 004e 0A23      		and r16,r26
+ 308 0050 1B23      		and r17,r27
+ 309 0052 EE0C      		lsl r14
+ 310 0054 FF1C      		rol r15
+ 311 0056 001F      		rol r16
+ 312 0058 111F      		rol r17
+ 313               	.LSM30:
+ 314 005a 2E29      		or r18,r14
+ 315 005c 3F29      		or r19,r15
+ 316 005e 402B      		or r20,r16
+ 317 0060 512B      		or r21,r17
+ 318               	.LSM31:
+ 319 0062 7FE0      		ldi r23,lo8(15)
+ 320 0064 E72E      		mov r14,r23
+ 321 0066 F12C      		mov r15,__zero_reg__
+ 322 0068 012D      		mov r16,__zero_reg__
+ 323 006a 112D      		mov r17,__zero_reg__
+ 324 006c E822      		and r14,r24
+ 325 006e F922      		and r15,r25
+ 326 0070 0A23      		and r16,r26
+ 327 0072 1B23      		and r17,r27
+ 328               	.LSM32:
+ 329 0074 2E29      		or r18,r14
+ 330 0076 3F29      		or r19,r15
+ 331 0078 402B      		or r20,r16
+ 332 007a 512B      		or r21,r17
+ 333               	.LVL28:
+ 334               	.LSM33:
+ 335 007c 68E7      		ldi r22,lo8(120)
+ 336 007e E62E      		mov r14,r22
+ 337 0080 F12C      		mov r15,__zero_reg__
+ 338 0082 012D      		mov r16,__zero_reg__
+ 339 0084 112D      		mov r17,__zero_reg__
+ 340 0086 E822      		and r14,r24
+ 341 0088 F922      		and r15,r25
+ 342 008a 0A23      		and r16,r26
+ 343 008c 1B23      		and r17,r27
+ 344 008e F5E0      		ldi r31,5
+ 345 0090 EE0C      	1:	lsl r14
+ 346 0092 FF1C      		rol r15
+ 347 0094 001F      		rol r16
+ 348 0096 111F      		rol r17
+ 349 0098 FA95      		dec r31
+ 350 009a 01F4      		brne 1b
+ 351 009c 2E29      		or r18,r14
+ 352 009e 3F29      		or r19,r15
+ 353 00a0 402B      		or r20,r16
+ 354 00a2 512B      		or r21,r17
+ 355               	.LVL29:
+ 356               	.LSM34:
+ 357 00a4 E0EF      		ldi r30,lo8(240)
+ 358 00a6 EE2E      		mov r14,r30
+ 359 00a8 F12C      		mov r15,__zero_reg__
+ 360 00aa 012D      		mov r16,__zero_reg__
+ 361 00ac 112D      		mov r17,__zero_reg__
+ 362 00ae E822      		and r14,r24
+ 363 00b0 F922      		and r15,r25
+ 364 00b2 0A23      		and r16,r26
+ 365 00b4 1B23      		and r17,r27
+ 366 00b6 72E0      		ldi r23,2
+ 367 00b8 EE0C      	1:	lsl r14
+ 368 00ba FF1C      		rol r15
+ 369 00bc 001F      		rol r16
+ 370 00be 111F      		rol r17
+ 371 00c0 7A95      		dec r23
+ 372 00c2 01F4      		brne 1b
+ 373 00c4 2E29      		or r18,r14
+ 374 00c6 3F29      		or r19,r15
+ 375 00c8 402B      		or r20,r16
+ 376 00ca 512B      		or r21,r17
+ 377               	.LVL30:
+ 378               	.LSM35:
+ 379 00cc 60EE      		ldi r22,lo8(480)
+ 380 00ce E62E      		mov r14,r22
+ 381 00d0 61E0      		ldi r22,hi8(480)
+ 382 00d2 F62E      		mov r15,r22
+ 383 00d4 012D      		mov r16,__zero_reg__
+ 384 00d6 112D      		mov r17,__zero_reg__
+ 385 00d8 E822      		and r14,r24
+ 386 00da F922      		and r15,r25
+ 387 00dc 0A23      		and r16,r26
+ 388 00de 1B23      		and r17,r27
+ 389 00e0 F6E0      		ldi r31,6
+ 390 00e2 EE0C      	1:	lsl r14
+ 391 00e4 FF1C      		rol r15
+ 392 00e6 001F      		rol r16
+ 393 00e8 111F      		rol r17
+ 394 00ea FA95      		dec r31
+ 395 00ec 01F4      		brne 1b
+ 396 00ee 2E29      		or r18,r14
+ 397 00f0 3F29      		or r19,r15
+ 398 00f2 402B      		or r20,r16
+ 399 00f4 512B      		or r21,r17
+ 400               	.LVL31:
+ 401               	.LSM36:
+ 402 00f6 E0EC      		ldi r30,lo8(960)
+ 403 00f8 EE2E      		mov r14,r30
+ 404 00fa E3E0      		ldi r30,hi8(960)
+ 405 00fc FE2E      		mov r15,r30
+ 406 00fe 012D      		mov r16,__zero_reg__
+ 407 0100 112D      		mov r17,__zero_reg__
+ 408 0102 E822      		and r14,r24
+ 409 0104 F922      		and r15,r25
+ 410 0106 0A23      		and r16,r26
+ 411 0108 1B23      		and r17,r27
+ 412 010a 73E0      		ldi r23,3
+ 413 010c EE0C      	1:	lsl r14
+ 414 010e FF1C      		rol r15
+ 415 0110 001F      		rol r16
+ 416 0112 111F      		rol r17
+ 417 0114 7A95      		dec r23
+ 418 0116 01F4      		brne 1b
+ 419 0118 2E29      		or r18,r14
+ 420 011a 3F29      		or r19,r15
+ 421 011c 402B      		or r20,r16
+ 422 011e 512B      		or r21,r17
+ 423               	.LVL32:
+ 424               	.LSM37:
+ 425 0120 8078      		andi r24,lo8(1920)
+ 426 0122 9770      		andi r25,hi8(1920)
+ 427 0124 A070      		andi r26,hlo8(1920)
+ 428 0126 B070      		andi r27,hhi8(1920)
+ 429 0128 67E0      		ldi r22,7
+ 430 012a 880F      	1:	lsl r24
+ 431 012c 991F      		rol r25
+ 432 012e AA1F      		rol r26
+ 433 0130 BB1F      		rol r27
+ 434 0132 6A95      		dec r22
+ 435 0134 01F4      		brne 1b
+ 436 0136 282B      		or r18,r24
+ 437 0138 392B      		or r19,r25
+ 438 013a 4A2B      		or r20,r26
+ 439 013c 5B2B      		or r21,r27
+ 440               	.LVL33:
+ 441               	.LSM38:
+ 442 013e B901      		movw r22,r18
+ 443 0140 CA01      		movw r24,r20
+ 444               	/* epilogue start */
+ 445 0142 0F90      		pop __tmp_reg__
+ 446 0144 0F90      		pop __tmp_reg__
+ 447 0146 0F90      		pop __tmp_reg__
+ 448 0148 0F90      		pop __tmp_reg__
+ 449 014a CF91      		pop r28
+ 450 014c DF91      		pop r29
+ 451 014e 1F91      		pop r17
+ 452 0150 0F91      		pop r16
+ 453 0152 FF90      		pop r15
+ 454 0154 EF90      		pop r14
+ 455 0156 0895      		ret
+ 456               	.LFE13:
+ 458               		.section	.text.south_down,"ax",@progbits
+ 459               	.global	south_down
+ 461               	south_down:
+ 462               	.LFB14:
+ 463               	.LSM39:
+ 464               	.LVL34:
+ 465 0000 CF92      		push r12
+ 466 0002 DF92      		push r13
+ 467 0004 EF92      		push r14
+ 468 0006 FF92      		push r15
+ 469 0008 0F93      		push r16
+ 470 000a 1F93      		push r17
+ 471               	/* prologue: function */
+ 472               	/* frame size = 0 */
+ 473               	/* stack size = 6 */
+ 474               	.L__stack_usage = 6
+ 475 000c 8A01      		movw r16,r20
+ 476 000e 9B01      		movw r18,r22
+ 477               	.LVL35:
+ 478               	.LSM40:
+ 479 0010 4FE0      		ldi r20,lo8(15)
+ 480 0012 C42E      		mov r12,r20
+ 481 0014 D12C      		mov r13,__zero_reg__
+ 482 0016 E12C      		mov r14,__zero_reg__
+ 483 0018 F12C      		mov r15,__zero_reg__
+ 484               	.LVL36:
+ 485 001a C022      		and r12,r16
+ 486 001c D122      		and r13,r17
+ 487 001e E222      		and r14,r18
+ 488 0020 F322      		and r15,r19
+ 489               	.LVL37:
+ 490               	.LSM41:
+ 491 0022 B701      		movw r22,r14
+ 492 0024 A601      		movw r20,r12
+ 493 0026 92E0      		ldi r25,2
+ 494 0028 440F      	1:	lsl r20
+ 495 002a 551F      		rol r21
+ 496 002c 661F      		rol r22
+ 497 002e 771F      		rol r23
+ 498 0030 9A95      		dec r25
+ 499 0032 01F4      		brne 1b
+ 500               	.LSM42:
+ 501 0034 B4E0      		ldi r27,4
+ 502 0036 000F      	1:	lsl r16
+ 503 0038 111F      		rol r17
+ 504 003a 221F      		rol r18
+ 505 003c 331F      		rol r19
+ 506 003e BA95      		dec r27
+ 507 0040 01F4      		brne 1b
+ 508               	.LVL38:
+ 509 0042 1070      		andi r17,hi8(255)
+ 510 0044 2070      		andi r18,hlo8(255)
+ 511 0046 3070      		andi r19,hhi8(255)
+ 512               	.LSM43:
+ 513 0048 402B      		or r20,r16
+ 514 004a 512B      		or r21,r17
+ 515 004c 622B      		or r22,r18
+ 516 004e 732B      		or r23,r19
+ 517               	.LSM44:
+ 518 0050 4C29      		or r20,r12
+ 519 0052 5D29      		or r21,r13
+ 520 0054 6E29      		or r22,r14
+ 521 0056 7F29      		or r23,r15
+ 522               	.LVL39:
+ 523               	.LSM45:
+ 524 0058 9701      		movw r18,r14
+ 525 005a 8601      		movw r16,r12
+ 526 005c A6E0      		ldi r26,6
+ 527 005e 000F      	1:	lsl r16
+ 528 0060 111F      		rol r17
+ 529 0062 221F      		rol r18
+ 530 0064 331F      		rol r19
+ 531 0066 AA95      		dec r26
+ 532 0068 01F4      		brne 1b
+ 533 006a 402B      		or r20,r16
+ 534 006c 512B      		or r21,r17
+ 535 006e 622B      		or r22,r18
+ 536 0070 732B      		or r23,r19
+ 537               	.LVL40:
+ 538               	.LSM46:
+ 539 0072 9701      		movw r18,r14
+ 540 0074 8601      		movw r16,r12
+ 541 0076 000F      		lsl r16
+ 542 0078 111F      		rol r17
+ 543 007a 221F      		rol r18
+ 544 007c 331F      		rol r19
+ 545 007e 402B      		or r20,r16
+ 546 0080 512B      		or r21,r17
+ 547 0082 622B      		or r22,r18
+ 548 0084 732B      		or r23,r19
+ 549               	.LVL41:
+ 550               	.LSM47:
+ 551 0086 9701      		movw r18,r14
+ 552 0088 8601      		movw r16,r12
+ 553 008a E3E0      		ldi r30,3
+ 554 008c 000F      	1:	lsl r16
+ 555 008e 111F      		rol r17
+ 556 0090 221F      		rol r18
+ 557 0092 331F      		rol r19
+ 558 0094 EA95      		dec r30
+ 559 0096 01F4      		brne 1b
+ 560 0098 402B      		or r20,r16
+ 561 009a 512B      		or r21,r17
+ 562 009c 622B      		or r22,r18
+ 563 009e 732B      		or r23,r19
+ 564               	.LVL42:
+ 565               	.LSM48:
+ 566 00a0 9701      		movw r18,r14
+ 567 00a2 8601      		movw r16,r12
+ 568 00a4 95E0      		ldi r25,5
+ 569 00a6 000F      	1:	lsl r16
+ 570 00a8 111F      		rol r17
+ 571 00aa 221F      		rol r18
+ 572 00ac 331F      		rol r19
+ 573 00ae 9A95      		dec r25
+ 574 00b0 01F4      		brne 1b
+ 575 00b2 402B      		or r20,r16
+ 576 00b4 512B      		or r21,r17
+ 577 00b6 622B      		or r22,r18
+ 578 00b8 732B      		or r23,r19
+ 579               	.LVL43:
+ 580               	.LSM49:
+ 581 00ba 07E0      		ldi r16,7
+ 582 00bc CC0C      	1:	lsl r12
+ 583 00be DD1C      		rol r13
+ 584 00c0 EE1C      		rol r14
+ 585 00c2 FF1C      		rol r15
+ 586 00c4 0A95      		dec r16
+ 587 00c6 01F4      		brne 1b
+ 588               	.LVL44:
+ 589 00c8 4C29      		or r20,r12
+ 590 00ca 5D29      		or r21,r13
+ 591 00cc 6E29      		or r22,r14
+ 592 00ce 7F29      		or r23,r15
+ 593               	.LVL45:
+ 594               	.LSM50:
+ 595 00d0 0E94 0000 		call south_write
+ 596               	.LVL46:
+ 597               	/* epilogue start */
+ 598               	.LSM51:
+ 599 00d4 1F91      		pop r17
+ 600 00d6 0F91      		pop r16
+ 601 00d8 FF90      		pop r15
+ 602 00da EF90      		pop r14
+ 603 00dc DF90      		pop r13
+ 604 00de CF90      		pop r12
+ 605 00e0 0895      		ret
+ 606               	.LFE14:
+ 608               		.section	.text.south_segments_once,"ax",@progbits
+ 609               	.global	south_segments_once
+ 611               	south_segments_once:
+ 612               	.LFB15:
+ 613               	.LSM52:
+ 614               	.LVL47:
+ 615 0000 EF92      		push r14
+ 616 0002 FF92      		push r15
+ 617 0004 0F93      		push r16
+ 618 0006 1F93      		push r17
+ 619 0008 CF93      		push r28
+ 620 000a DF93      		push r29
+ 621               	/* prologue: function */
+ 622               	/* frame size = 0 */
+ 623               	/* stack size = 6 */
+ 624               	.L__stack_usage = 6
+ 625               	.LSM53:
+ 626 000c 01E0      		ldi r16,lo8(1)
+ 627 000e 10E0      		ldi r17,hi8(1)
+ 628 0010 00C0      		rjmp 2f
+ 629 0012 000F      	1:	lsl r16
+ 630 0014 111F      		rol r17
+ 631 0016 8A95      	2:	dec r24
+ 632 0018 02F4      		brpl 1b
+ 633               	.LVL48:
+ 634 001a C0E0      		ldi r28,lo8(0)
+ 635 001c D0E0      		ldi r29,hi8(0)
+ 636               	.LSM54:
+ 637 001e 6FE0      		ldi r22,lo8(15)
+ 638 0020 E62E      		mov r14,r22
+ 639 0022 F12C      		mov r15,__zero_reg__
+ 640               	.LVL49:
+ 641               	.L16:
+ 642               	.LSM55:
+ 643 0024 8C2F      		mov r24,r28
+ 644 0026 0E94 0000 		call south_max6959
+ 645 002a 9E01      		movw r18,r28
+ 646 002c 220F      		lsl r18
+ 647 002e 331F      		rol r19
+ 648 0030 220F      		lsl r18
+ 649 0032 331F      		rol r19
+ 650 0034 A701      		movw r20,r14
+ 651 0036 022E      		mov r0,r18
+ 652 0038 00C0      		rjmp 2f
+ 653 003a 440F      	1:	lsl r20
+ 654 003c 551F      		rol r21
+ 655 003e 0A94      	2:	dec r0
+ 656 0040 02F4      		brpl 1b
+ 657 0042 4023      		and r20,r16
+ 658 0044 5123      		and r21,r17
+ 659 0046 00C0      		rjmp 2f
+ 660 0048 5695      	1:	lsr r21
+ 661 004a 4795      		ror r20
+ 662 004c 2A95      	2:	dec r18
+ 663 004e 02F4      		brpl 1b
+ 664 0050 64E2      		ldi r22,lo8(36)
+ 665 0052 0E94 0000 		call max6959_write
+ 666               	.LVL50:
+ 667 0056 2196      		adiw r28,1
+ 668               	.LVL51:
+ 669               	.LSM56:
+ 670 0058 C430      		cpi r28,4
+ 671 005a D105      		cpc r29,__zero_reg__
+ 672 005c 01F4      		brne .L16
+ 673               	/* epilogue start */
+ 674               	.LSM57:
+ 675 005e DF91      		pop r29
+ 676 0060 CF91      		pop r28
+ 677               	.LVL52:
+ 678 0062 1F91      		pop r17
+ 679 0064 0F91      		pop r16
+ 680               	.LVL53:
+ 681 0066 FF90      		pop r15
+ 682 0068 EF90      		pop r14
+ 683 006a 0895      		ret
+ 684               	.LFE15:
+ 686               		.section	.text.south_test,"ax",@progbits
+ 687               	.global	south_test
+ 689               	south_test:
+ 690               	.LFB16:
+ 691               	.LSM58:
+ 692 0000 1F93      		push r17
+ 693               	/* prologue: function */
+ 694               	/* frame size = 0 */
+ 695               	/* stack size = 1 */
+ 696               	.L__stack_usage = 1
+ 697               	.LVL54:
+ 698               	.LSM59:
+ 699 0002 10E0      		ldi r17,lo8(0)
+ 700               	.LVL55:
+ 701               	.L19:
+ 702               	.LSM60:
+ 703 0004 812F      		mov r24,r17
+ 704 0006 0E94 0000 		call south_max6959
+ 705 000a 0E94 0000 		call max6959_test
+ 706               	.LSM61:
+ 707 000e 1F5F      		subi r17,lo8(-(1))
+ 708               	.LVL56:
+ 709 0010 1430      		cpi r17,lo8(4)
+ 710 0012 01F4      		brne .L19
+ 711               	/* epilogue start */
+ 712               	.LSM62:
+ 713 0014 1F91      		pop r17
+ 714               	.LVL57:
+ 715 0016 0895      		ret
+ 716               	.LFE16:
+ 814               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 south.c
+     /tmp/ccX9qh2h.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/ccX9qh2h.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/ccX9qh2h.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/ccX9qh2h.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/ccX9qh2h.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccX9qh2h.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccX9qh2h.s:19     .text.south_irq:0000000000000000 south_irq
+     /tmp/ccX9qh2h.s:35     .text.south_max6959:0000000000000000 south_max6959
+     /tmp/ccX9qh2h.s:70     .text.south_read:0000000000000000 south_read
+     /tmp/ccX9qh2h.s:123    .text.south_write:0000000000000000 south_write
+     /tmp/ccX9qh2h.s:192    .text.south_write_broadcast:0000000000000000 south_write_broadcast
+     /tmp/ccX9qh2h.s:235    .text.south_init:0000000000000000 south_init
+     /tmp/ccX9qh2h.s:254    .text.south_up:0000000000000000 south_up
+     /tmp/ccX9qh2h.s:461    .text.south_down:0000000000000000 south_down
+     /tmp/ccX9qh2h.s:611    .text.south_segments_once:0000000000000000 south_segments_once
+     /tmp/ccX9qh2h.s:689    .text.south_test:0000000000000000 south_test
+
+UNDEFINED SYMBOLS
+max6959_read
+max6959_write
+max6959_test

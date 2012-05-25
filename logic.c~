@@ -1,0 +1,126 @@
+#include "logic.h"
+
+/* private */
+
+void stat_append (long n, char m, uint32_t time_sum)
+{
+}
+
+
+void logic_game (void)
+{
+	char str[16]; 
+	long time_start, time_sum = 0;
+	uint32_t data = 0, data_new = 0;
+	int n, i;
+	char m, j;
+	
+	conf_read (&n,&m);
+	
+	for (i = 0; i < n; ++i)
+	{
+		time_start = north_time;
+		for (j = 0; j < m;)
+		{
+			data_new = _BV (rand () & 0b1111 );
+			if (!(data ^ data_new))
+			{
+				data |= data_new;
+				++j;
+			}
+		}
+		do
+		{
+			LCD_Clear ();
+			LCD_GoTo (0, 0);
+			LCD_WriteText (" ture : ");
+			LCD_WriteText (itoa (i, str, 10));
+			LCD_WriteText ("from : ");
+			LCD_WriteText (itoa (n, str, 10));
+			
+			LCD_GoTo (0, 1);
+			LCD_WriteText ("time rund : ");
+			LCD_WriteText (ltoa (north_time - time_start, str, 10));
+
+			LCD_GoTo (0, 2);
+			LCD_WriteText ("time sum  : ");
+			LCD_WriteText (ltoa (time_sum + (north_time - time_start) , str, 10));
+			
+			LCD_GoTo (0, 3);
+			LCD_WriteText ("time ave  : ");
+			LCD_WriteText (ltoa (time_sum / (n*m) , str, 10));
+			
+			south_read (READ_KEY_PRESSED, data_new);
+			data &= ~data_new;
+		}
+		while (!data);
+		time_sum +=(north_time - time_start);
+	}
+	stat_append (n,m,time_sum);
+}	
+
+
+void conf_read (int *n, char *m)
+{
+	*n = 16;
+	*m = 2;
+}
+
+void conf_write (int n, char m)
+{
+	
+}
+
+void logic_conf (void)
+{
+	
+}
+
+void logic_stat (void)
+{
+	
+}
+
+
+
+/* public */
+
+void logic_test (void)
+{	
+	
+}
+
+void logic_run (void)
+{
+	for (;;)
+	{
+		LCD_Clear ();
+	
+		LCD_GoTo (0, 0);
+		LCD_WriteText ("Menu:");
+	
+		LCD_GoTo (0, 1);
+		LCD_WriteText ("1: Game");
+
+		LCD_GoTo (0, 2);
+		LCD_WriteText ("2: Config");
+		
+		LCD_GoTo (0, 3);
+		LCD_WriteText ("3: Stat");
+		
+		switch (getchar ())
+		{
+			case '1' : 
+				logic_game ();
+				break;
+			case '2' : 
+				logic_conf ();
+				break;
+			case '3' : 
+				logic_stat ();
+				break;
+		}
+	}
+	
+}
+

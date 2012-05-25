@@ -1,0 +1,111 @@
+#include "north.h"
+
+ISR (INT6_vect)
+{
+	int6 = (int6+1) % 4;
+	
+}
+
+ISR (TIMER3_COMPA)
+{
+	++time;
+}
+
+void timer3_init ()
+{
+	OCR3A = 3125;
+	TCCR3B |= _BV (CS32);
+}
+
+void north_init (void)
+{
+	north_test_south ();
+	north_menu ();
+	north_game (0xff);
+	
+	for (;;);
+}
+
+void north_menu (void)
+{
+	LCD_WriteText ("Menu:");
+}
+
+void north_game (int n)
+{
+	char str[16]; 
+	int i;
+	int time_sum = 0;
+	
+	LCD_Clear ();
+	for (i = 0; i < n; ++i)
+	{
+		south_segments (rand());
+		time = 0;
+		
+		for (;;)
+		{
+			LCD_GoTo (0, 0);
+			LCD_WriteText ("n : ");
+			LCD_WriteText (itoa (n, str, 10));
+			LCD_WriteText (" i : ");
+			LCD_WriteText (itoa (i, str, 10));
+			
+			LCD_GoTo (0, 1);
+			LCD_WriteText ("time      : ");
+			LCD_WriteText (itoa (time, str, 10));
+
+			LCD_GoTo (0, 2);
+			LCD_WriteText ("time sum  : ");
+			LCD_WriteText (itoa (time_sum + time , str, 10));
+			
+			LCD_GoTo (0, 3);
+			LCD_WriteText ("time ave  : ");
+			LCD_WriteText (itoa (time_sum / i , str, 10));
+			
+		}
+	}
+}		
+
+
+void north_test (void) 
+{
+	
+}
+
+void north_test_south (void) 
+{
+	char ptr[4];
+	char i;
+	uint8_t stat, data;
+	for (i = 0; i < 4; ++i)
+	{
+		stat = max6959_write (south_max6959 (i), INTENSITY, 0x00);
+		LCD_GoTo (0, i);
+		
+		if (stat == I2C_OK)
+		{
+			LCD_WriteText ("w: 0x3f r: ");
+		}
+		else 
+		{
+			LCD_WriteText ("gówno      ");
+		}
+			
+		stat = max6959_read (south_max6959 (i), INTENSITY, &data);
+		if (stat == I2C_OK)
+		{
+			LCD_WriteText (utoa (data, ptr, 16, ));
+			LCD_WriteText (" r: " );
+			LCD_WriteText ("w: 0x3f r: ");
+		}
+		else 
+		{
+			LCD_WriteText ("gówno      ");
+		}
+		stat = max6959_read (south_max6959 (i), SCAN_LIMIT, &data);
+		LCD_WriteText (utoa (data, ptr, 16)) ;
+	}
+	while (hwb);
+	while (!hwb);
+}

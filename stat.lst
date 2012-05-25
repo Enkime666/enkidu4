@@ -1,0 +1,51 @@
+   1               		.file	"stat.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__ = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               		.section	.text.stat_append,"ax",@progbits
+  17               	.global	stat_append
+  19               	stat_append:
+  20               	.LFB0:
+  21               	.LSM0:
+  22 0000 DF93      		push r29
+  23 0002 CF93      		push r28
+  24 0004 CDB7      		in r28,__SP_L__
+  25 0006 DEB7      		in r29,__SP_H__
+  26 0008 2897      		sbiw r28,8
+  27 000a 0FB6      		in __tmp_reg__,__SREG__
+  28 000c F894      		cli
+  29 000e DEBF      		out __SP_H__,r29
+  30 0010 0FBE      		out __SREG__,__tmp_reg__
+  31 0012 CDBF      		out __SP_L__,r28
+  32               	/* prologue: function */
+  33               	/* frame size = 8 */
+  34               	/* stack size = 10 */
+  35               	.L__stack_usage = 10
+  36               	/* epilogue start */
+  37               	.LSM1:
+  38 0014 2896      		adiw r28,8
+  39 0016 0FB6      		in __tmp_reg__,__SREG__
+  40 0018 F894      		cli
+  41 001a DEBF      		out __SP_H__,r29
+  42 001c 0FBE      		out __SREG__,__tmp_reg__
+  43 001e CDBF      		out __SP_L__,r28
+  44 0020 CF91      		pop r28
+  45 0022 DF91      		pop r29
+  46 0024 0895      		ret
+  47               	.LFE0:
+  73               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stat.c
+     /tmp/cclA44O4.s:2      *ABS*:000000000000003f __SREG__
+     /tmp/cclA44O4.s:3      *ABS*:000000000000003e __SP_H__
+     /tmp/cclA44O4.s:4      *ABS*:000000000000003d __SP_L__
+     /tmp/cclA44O4.s:5      *ABS*:0000000000000034 __CCP__
+     /tmp/cclA44O4.s:6      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cclA44O4.s:7      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cclA44O4.s:19     .text.stat_append:0000000000000000 stat_append
+
+NO UNDEFINED SYMBOLS
